@@ -6,23 +6,26 @@ Pri vseh nalogah se vam pod razdelkom **RAM** splača nastaviti _View_ na _Decim
 
 Zapišite program, ki v register `A` zapiše ostanek pri deljenju registra `A` z registrom `B`.
 
+```console
 Ostanke pri deljenju registra A z B zapiše v A
 MOV C, A
 DIV B
 MUL B
 SUB C, A
 MOV A, C
+```
 
 ## Zaporedna števila
 
 Zapišite program, ki na sklad zaporedno postavlja števila od 13 do 42.
-
+```console
 MOV A, 13
 
 loop:	PUSH A		; potisne v stack
 	    INC A		; poveča za ena
 	    CMP A, 42	; primerja z mejo
 	    JBE loop	; dokler je manj ali enako loop-a
+```
 
 ## Menjava pomnilniških celic
 
