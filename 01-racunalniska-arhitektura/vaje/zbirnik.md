@@ -22,7 +22,7 @@ Zapišite program, ki na sklad zaporedno postavlja števila od 13 do 42.
 MOV A, 13
 
 loop:	PUSH A		; potisne v stack
-	    INC A		; poveča za ena
+	    INC A	; poveča za ena
 	    CMP A, 42	; primerja z mejo
 	    JBE loop	; dokler je manj ali enako loop-a
 ```
@@ -31,7 +31,11 @@ loop:	PUSH A		; potisne v stack
 
 Poleg registrov in sklada lahko podatke shranjujemo tudi v pomnilniške celice. To storimo prek naslovov oblike `[N]`, kjer je `N` zaporedni indeks mesta v pomnilniku, ali `[R]`, kjer je `R` ime registra, v katerem je shranjen indeks. Zapišite program, ki zamenja vsebini pomnilniških celic na naslovih `[A]` in `[B]`.
 
-
+```console
+MOV C, [A]
+MOV A, [B]
+MOV B, C
+```
 
 ## Iskanje najmanjšega števila v seznamu
 
