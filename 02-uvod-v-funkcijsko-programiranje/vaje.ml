@@ -20,7 +20,7 @@ predstavljen s seznamom števil s plavajočo vejico, pomnoži z danim skalarjem.
 [*----------------------------------------------------------------------------*)
 
 let rec razteg vektor skalar = 
-    List.map(fun x -> x *. skalar) vektor
+    List.map (( *. ) skalar) vektor
 
 (*----------------------------------------------------------------------------*]
 Napišite funkcijo `sestej : vector -> vector -> vector`, ki vrne vsoto dveh 
@@ -56,8 +56,9 @@ Napišite funkcijo `projeciraj : vector -> vector -> vector`, ki izračuna
 projekcijo prvega vektorja na drugega.
 [*----------------------------------------------------------------------------*)
 
-let rec projeciraj = 
-
+let rec projeciraj vekt1 vekt2 = 
+    let skalar = ( skalarni_produkt vekt1 vekt2 ) /.  ( norma vekt2 ) in
+    razteg vekt2 skalar
 
 (*----------------------------------------------------------------------------*]
 Napišite funkcijo `ovij : string -> string -> string`, ki sprejme ime HTML 
@@ -68,8 +69,7 @@ Primer:
 
 [*----------------------------------------------------------------------------*)
 
-let rec ovij znacka vsebina = 
-    "<" ^ znacka ^ ">" ^ vsebina ^  "<" ^ "/" ^ znacka ^ ">" 
+let rec ovij znacka vsebina = "<" ^ znacka ^ ">" ^ vsebina ^ "<" ^ "/" ^ znacka ^ ">"  
 
 (*----------------------------------------------------------------------------*]
 Napišite funkcijo `zamakni : int -> string -> string`, ki sprejme število 
@@ -80,7 +80,8 @@ Primer:
 
 [*----------------------------------------------------------------------------*)
 
-let rec zamakni = ()
+let rec zamakni n niz = ()
+
 
 (*----------------------------------------------------------------------------*]
 Napišite funkcijo `ul : string list -> string`, ki sprejme seznam nizov in vrne 
@@ -102,7 +103,9 @@ Primer:
 
 [*----------------------------------------------------------------------------*)
 
-let rec razdeli_vrstico = ()
+let rec razdeli_vrstico niz = 
+    let sep = ',' in
+    String.split_on_char sep niz
 
 (*----------------------------------------------------------------------------*]
 Napišite funkcijo `pretvori_v_seznam_parov : string -> (string * string) list`, 
@@ -114,7 +117,9 @@ Primer:
 
 [*----------------------------------------------------------------------------*)
 
-let rec pretvori_v_seznam_parov = ()
+let rec pretvori_v_seznam_parov niz = 
+    let sez_nizov = String.split_on_char '\n' niz in
+    List.map (fun a -> (a)) sez_nizov
 
 (*----------------------------------------------------------------------------*]
 Napišite funkcijo `pretvori_druge_komponente : ('a -> 'b) -> (string * 'a) list -> (string * 'b) list`,
@@ -128,7 +133,8 @@ pretvori_druge_komponente String.length seznam
 
 [*----------------------------------------------------------------------------*)
 
-let rec pretvori_druge_komponente = ()
+let rec pretvori_druge_komponente f sez = 
+    List.map ( fun (a,b) -> (a, f b))
 
 (*----------------------------------------------------------------------------*]
 Napišite funkcijo `izracunaj_skupni_znesek : string -> string -> float`, ki 
