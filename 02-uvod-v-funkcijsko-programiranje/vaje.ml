@@ -80,7 +80,17 @@ Primer:
 
 [*----------------------------------------------------------------------------*)
 
-let rec zamakni n niz = ()
+let rec dodajaj_presledke n s =
+    let len = String.length s in
+    if len >= (n + len) then
+      s
+    else
+      " " ^ s 
+
+let rec zamakni n niz = 
+    String.split_on_char '\n' niz
+    |> List.map (dodajaj_presledke n )
+    |> String.concat " "
 
 
 (*----------------------------------------------------------------------------*]
@@ -92,7 +102,12 @@ Primer:
 
 [*----------------------------------------------------------------------------*)
 
-let rec ul = ()
+let rec ul sez = 
+    List.map ( ovij "li" ) sez
+    |> List.map (fun niz -> "\n" ^ niz)
+    |> String.concat " "
+    |> zamakni 2 
+    |> ovij "ul" 
 
 (*----------------------------------------------------------------------------*]
 Napišite funkcijo `razdeli_vrstico : string -> string * string`, ki sprejme niz, 
@@ -137,7 +152,7 @@ pretvori_druge_komponente String.length seznam
 [*----------------------------------------------------------------------------*)
 
 let rec pretvori_druge_komponente f sez = 
-    List.map ( fun (a,b) -> (a, f b))
+    List.map ( fun (a,b) -> (a, f b)) sez
 
 (*----------------------------------------------------------------------------*]
 Napišite funkcijo `izracunaj_skupni_znesek : string -> string -> float`, ki 
@@ -153,5 +168,11 @@ izracunaj_skupni_znesek cenik nakupovalni_seznam
 
 [*----------------------------------------------------------------------------*)
 
-let rec izracunaj_skupni_znesek sez =
+let rec izracunaj_skupni_znesek niz =
+    pretvori_v_seznam_parov niz 
+    |> pretvori_druge_komponente float_of_string
+    |> List.map (fun (a,b) -> b)
+    |> List.fold_left ( +. ) 0.
+    
+
 
