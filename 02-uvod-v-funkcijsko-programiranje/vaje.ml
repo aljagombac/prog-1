@@ -105,7 +105,10 @@ Primer:
 
 let rec razdeli_vrstico niz = 
     let sep = ',' in
-    String.split_on_char sep niz
+    let sez = String.split_on_char sep niz in
+    match sez with
+        | a :: b :: _ -> (a, b)
+        | _ -> failwith "Ne"
 
 (*----------------------------------------------------------------------------*]
 Napišite funkcijo `pretvori_v_seznam_parov : string -> (string * string) list`, 
@@ -119,7 +122,7 @@ Primer:
 
 let rec pretvori_v_seznam_parov niz = 
     let sez_nizov = String.split_on_char '\n' niz in
-    List.map (fun a -> (a)) sez_nizov
+    List.map (razdeli_vrstico) sez_nizov
 
 (*----------------------------------------------------------------------------*]
 Napišite funkcijo `pretvori_druge_komponente : ('a -> 'b) -> (string * 'a) list -> (string * 'b) list`,
@@ -150,4 +153,5 @@ izracunaj_skupni_znesek cenik nakupovalni_seznam
 
 [*----------------------------------------------------------------------------*)
 
-let rec izracunaj_skupni_znesek = ()
+let rec izracunaj_skupni_znesek sez =
+
