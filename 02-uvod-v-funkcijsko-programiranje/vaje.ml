@@ -10,40 +10,54 @@ type vector = float list
 Definirajte enotske vektorje `i`, `j` in `k` v treh dimenzijah.
 [*----------------------------------------------------------------------------*)
 
+let i: vector = [1.0;0.0;0.0]
+let j: vector = [0.0;1.0;0.0]
+let k: vector = [0.0;0.0;1.0]
 
 (*----------------------------------------------------------------------------*]
 Napišite funkcijo `razteg : float -> vector -> vector`, ki vektor, 
 predstavljen s seznamom števil s plavajočo vejico, pomnoži z danim skalarjem.
 [*----------------------------------------------------------------------------*)
 
-let rec razteg = ()
+let rec razteg vektor skalar = 
+    List.map(fun x -> x *. skalar) vektor
 
 (*----------------------------------------------------------------------------*]
 Napišite funkcijo `sestej : vector -> vector -> vector`, ki vrne vsoto dveh 
 vektorjev.
 [*----------------------------------------------------------------------------*)
 
-let rec sestej = ()
+let rec sestej vekt1 vekt2 = 
+    match vekt1, vekt2 with                                                     
+        | [], _ -> vekt1
+        | _, [] -> vekt2
+        | x1 :: tl1 , x2 :: tl2 -> (x1 +. x2) :: (sestej tl1 tl2)
 
 (*----------------------------------------------------------------------------*]
 Napišite funkcijo `skalarni_produkt : vector -> vector -> float`, ki izračuna 
 skalarni produkt dveh vektorjev
 [*----------------------------------------------------------------------------*)
 
-let rec skalarni_produkt = ()
+let rec skalarni_produkt vekt1 vekt2= 
+    List.combine vekt1 vekt2
+    |> List.map (fun (x1, x2) -> x1 *. x2)
+    |> List.fold_left ( +. ) 0.
+
 
 (*----------------------------------------------------------------------------*]
 Napišite funkcijo `norma : vector -> float`, ki vrne evklidsko normo vektorja.
 [*----------------------------------------------------------------------------*)
 
-let rec norma = ()
+let rec norma vektor = 
+    Float.sqrt ( skalarni_produkt vektor vektor )
 
 (*----------------------------------------------------------------------------*]
 Napišite funkcijo `projeciraj : vector -> vector -> vector`, ki izračuna 
 projekcijo prvega vektorja na drugega.
 [*----------------------------------------------------------------------------*)
 
-let rec projeciraj = ()
+let rec projeciraj = 
+
 
 (*----------------------------------------------------------------------------*]
 Napišite funkcijo `ovij : string -> string -> string`, ki sprejme ime HTML 
@@ -54,7 +68,8 @@ Primer:
 
 [*----------------------------------------------------------------------------*)
 
-let rec ovij = ()
+let rec ovij znacka vsebina = 
+    "<" ^ znacka ^ ">" ^ vsebina ^  "<" ^ "/" ^ znacka ^ ">" 
 
 (*----------------------------------------------------------------------------*]
 Napišite funkcijo `zamakni : int -> string -> string`, ki sprejme število 
