@@ -85,6 +85,10 @@ in insert_sort_acc ls []
  - : int array = [|0; 4; 2; 3; 1|]
 [*----------------------------------------------------------------------------*)
 
+let swap (a : 'a array) i j = 
+    let a_i = a.(i) in
+    Array.set a i a.(j);
+    Array.set a j a_i
 
 (*----------------------------------------------------------------------------*]
  Funkcija [index_min a lower upper] poišče indeks najmanjšega elementa tabele
@@ -93,10 +97,26 @@ in insert_sort_acc ls []
  index_min [|0; 2; 9; 3; 6|] 2 4 = 4
 [*----------------------------------------------------------------------------*)
 
+let index_min a lower upper =
+    (*let min_a = Array.sub a lower (upper - lower + 1) in
+    let min_a_list = List.fast_sort compare (Array.to_list min_a) in
+    let hd :: rep = min_a_list in*)
+    let min_i : int ref = ref lower in
+    for i = lower to upper do
+        if a.(i) <= a.(!min_i) then min_i := i else ()
+    done;
+    !min_i
 
 (*----------------------------------------------------------------------------*]
  Funkcija [selection_sort_array] implementira urejanje z izbiranjem na mestu. 
 [*----------------------------------------------------------------------------*)
+
+let selection_sort_array a =
+    let start : int ref = ref 0
+    for i = 1 to (Array.length a - 1) do
+        index_min a start i |> swap a i
+    done;
+    a
 
 
 (*----------------------------------------------------------------------------*]

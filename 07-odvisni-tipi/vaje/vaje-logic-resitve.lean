@@ -31,7 +31,7 @@ theorem eq6 {A B C : Prop} : (B ∨ C) → A ↔ (B → A) ∧ (C → A) :=
         constructor
         intro b
         apply h
-        left
+        left 
         exact b
         intro c
         have xx : B ∨ C := Or.inr c
